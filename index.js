@@ -1,11 +1,20 @@
-let tasks=[];
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+displayTasks();
+function saveToLocalStorage(){
+    localStorage.setItem("tasks",JSON.stringify(tasks));
+}
+
+
 function addTask(){
     let taskEle=document.getElementById("taskinput");
     let task=taskEle.value;
     if(task==="") return ;
     tasks.push(task);
     taskEle.value="";
+     saveToLocalStorage();
     displayTasks();
+
 }
 
 
@@ -49,15 +58,15 @@ function displayTasks(){
 //         conEle.appendChild(ol);
 // }
 
-
-
 function editTask(index){
    let task= prompt("enter task");
      tasks[index]=task;
+      saveToLocalStorage();
      displayTasks();
 }
 function deleteTask(index){
     tasks.splice(index,1);
+   saveToLocalStorage();
     displayTasks();
 }
 
